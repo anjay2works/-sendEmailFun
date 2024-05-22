@@ -1,0 +1,47 @@
+service: SLS-ses
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ap-south-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - ses:SendEmail
+        - ses:SendRawEmail
+      Resource: "*"
+functions:
+  helloLambda:
+    handler: src/helloLambda.handler
+    timeout: 30
+    events:
+      - http:
+          path: hello
+          method: get
+  sendEmail:
+    handler: src/sendEmail.handler
+    events:
+      - http:
+          path: send-email
+          method: post
+          cors: true        
+
+package:
+  individually: true
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+custom:
+  webpack:
+    webpackConfig: './webpack.config.js' # Assuming you have webpack.config.js file in the root
+    packager: 'npm'
+    includeModules:
+      forceExclude:
+        - aws-sdk
+  serverless-offline:
+    babelOptions:
+      presets:
+        - "@babel/preset-env"
+        - "@babel/preset-typescript"
