@@ -1,9 +1,9 @@
-const AWS = require('aws-sdk');
-const fs = require('fs');
-const path = require('path');
+import AWS from 'aws-sdk';
+import  fs, { PathOrFileDescriptor } from 'fs';
+import path  from 'path';
 const ses = new AWS.SES({ region: 'ap-south-1' });
 
-const readHtmlTemplate = (filePath:String) => {
+const readHtmlTemplate = (filePath:PathOrFileDescriptor) => {
   return new Promise((resolve, reject) => {
     fs.readFile(filePath, 'utf8', (err:any, data:any) => {
       if (err) {
@@ -67,7 +67,7 @@ export const handler = async (event: any)  => {
           Charset: 'UTF-8'
         }
       },
-      Source: 'your-verified-email@example.com'
+      Source: 'help.webiwork@gmail.com'
     };
 
     await ses.sendEmail(emailParams).promise();

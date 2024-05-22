@@ -12,7 +12,9 @@ module.exports = {
   entry: slsw.lib.entries,
   devtool: 'source-map',
   target: 'node',
-  externals: [nodeExternals()],
+  externals: [nodeExternals({
+    allowlist: ['aws-sdk']
+  })],
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
     plugins: [
