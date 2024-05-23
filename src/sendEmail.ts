@@ -24,19 +24,13 @@ const replaceTemplateData = (template:any, data:any) => {
 };
 
 export const handler = async (event: any)  => {
-    console.log("-event--",event.body);
-
-   
-    
-    
+    console.log("-event--",event);  
   const { 
     templateName, 
     name, 
     email, 
     code, 
     subject, 
-    ccEmailAddresses = [], 
-    bccEmailAddresses = [] 
   } = JSON.parse(event.body);
 
  
@@ -45,15 +39,15 @@ export const handler = async (event: any)  => {
     const htmlTemplate = await readHtmlTemplate(templatePath);
 
     const htmlContent = replaceTemplateData(htmlTemplate, {
-      name,
+      email,
       code
     });
 
     const emailParams = {
       Destination: {
         ToAddresses: [email],
-        CcAddresses: ccEmailAddresses,
-        BccAddresses: bccEmailAddresses
+        CcAddresses: [],
+        BccAddresses: []
       },
       Message: {
         Body: {
