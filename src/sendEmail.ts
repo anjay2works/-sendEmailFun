@@ -1,7 +1,8 @@
-import AWS from 'aws-sdk';
+const { SESClient, SendEmailCommand } = require('@aws-sdk/client-ses');
 import  fs, { PathOrFileDescriptor } from 'fs';
 import path  from 'path';
-const ses = new AWS.SES({ region: 'ap-south-1' });
+const sesClient = new SESClient({ region: 'ap-south-1' });
+
 
 const readHtmlTemplate = (filePath:PathOrFileDescriptor) => {
   return new Promise((resolve, reject) => {
@@ -27,7 +28,6 @@ export const handler = async (event: any)  => {
     console.log("-event--",event);  
   const { 
     templateName, 
-    name, 
     email, 
     code, 
     subject, 
@@ -61,11 +61,10 @@ export const handler = async (event: any)  => {
           Charset: 'UTF-8'
         }
       },
-      Source: 'help.webiwork@gmail.com'
+      Source: 'anjay.shukla@2works.io'
     };
 
-    await ses.sendEmail(emailParams).promise();
-
+    await sesClient.send(new SendEmailCommand(emailParams));
     const response = {
       statusCode: 200,
       body: JSON.stringify({
