@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join Notification</title>
+</head>
+
+<body style="margin: 0; padding: 0">
+  <div style="
+        max-width: 550px;
+        border: 1px solid #f1f1f1;
+        margin: 50px auto;
+        box-shadow: 0 0 58px -13px rgba(0, 0, 0, 0.15);
+        border-radius: 10px;
+      ">
+    <div style="padding: 30px 30px 10px; text-align: center">
+      <img style="max-width: 250px; margin: 0 auto"
+        src="https://img.freepik.com/premium-vector/pink-envelope-with-document-with-email-icon-concept-receive-message-email-subscribe-vector_605517-40.jpg" />
+    </div>
+    <div style="padding: 20px 30px 60px; text-align: center">
+      <h2>Join Notification</h2>
+      
+      <p> {{email}} want to join your organisation. Click the button below to send the invitation.</p>
+  
+
+       <div style="margin-top: 50px;">
+        <a href="https://sso-react-neon.vercel.app/invite/{{inviteToken}}"
+        style="
+            padding: 13px 25px;
+            border-radius: 8px;
+            background-color: #027cbd;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            outline: none;
+            max-width: 40%;
+            margin-top: 30px;
+          ">
+        Send Invite
+      </a>
+       </div>
+
+
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -25,13 +25,13 @@ const replaceTemplateData = (template:any, data:any) => {
 };
 
 export const handler = async (event: any)  => {
-    console.log("-event--",event);  
+    console.log("-event--",event); 
+    const payload = JSON.parse(event.body); 
   const { 
     templateName, 
-    email, 
-    code, 
     subject, 
-  } = JSON.parse(event.body);
+    email
+  } = payload
 
  
   try {
@@ -39,9 +39,8 @@ export const handler = async (event: any)  => {
     const htmlTemplate = await readHtmlTemplate(templatePath);
 
     const htmlContent = replaceTemplateData(htmlTemplate, {
-      email,
-      code
-    });
+      ...payload
+    });    
 
     const emailParams = {
       Destination: {
