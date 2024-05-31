@@ -1,4 +1,4 @@
-const { SESClient, SendEmailCommand } = require('@aws-sdk/client-ses');
+import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
 import  fs, { PathOrFileDescriptor } from 'fs';
 import path  from 'path';
 const sesClient = new SESClient({ region: 'ap-south-1' });
