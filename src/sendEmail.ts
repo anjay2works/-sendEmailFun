@@ -1,7 +1,7 @@
 import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
 import  fs, { PathOrFileDescriptor } from 'fs';
 import path  from 'path';
-const sesClient = new SESClient({ region: 'ap-south-1' });
+const sesClient = new SESClient({ region: process.env.AWS_REGION_KEY });
 
 
 const readHtmlTemplate = (filePath:PathOrFileDescriptor) => {
@@ -60,9 +60,10 @@ export const handler = async (event: any)  => {
           Charset: 'UTF-8'
         }
       },
-      Source: 'anjay.shukla@2works.io'
+      Source: process.env.SEND_EMAIL_FROM
     };
 
+    console.log(process.env.SEND_EMAIL_FROM,"process.env.SEND_EMAIL_FROM")
     await sesClient.send(new SendEmailCommand(emailParams));
     const response = {
       statusCode: 200,
@@ -72,6 +73,7 @@ export const handler = async (event: any)  => {
     };
     return response;
   } catch (error:any) {
+    console.log(error,"error>>>>>>>>>>>>>>>>>>>>>>>>>>")
     const response = {
       statusCode: 500,
       body: JSON.stringify({

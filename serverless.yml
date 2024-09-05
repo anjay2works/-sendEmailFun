@@ -1,9 +1,11 @@
 service: SLS-ses
 
+useDotenv: true
+
 provider:
   name: aws
   runtime: nodejs18.x
-  region: ap-south-1
+  region: ${env:AWS_REGION_KEY}
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -11,13 +13,6 @@ provider:
         - ses:SendRawEmail
       Resource: "*"
 functions:
-  helloLambda:
-    handler: src/helloLambda.handler
-    timeout: 30
-    events:
-      - http:
-          path: hello
-          method: get
   sendEmail:
     handler: src/sendEmail.handler
     events:
